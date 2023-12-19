@@ -1,0 +1,4 @@
+GET http://localhost:8000/api/list-tps
+
+###
+GET http://localhost:8000/api/list-kandidat
