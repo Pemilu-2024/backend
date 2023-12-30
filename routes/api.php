@@ -45,7 +45,7 @@ Route::group([
         Route::get('list-komen-konten/{id}', [KontenController::class,'listKomenbyIdKonten']);
       
         Route::get('list-suara', [SuaraController::class,'listSuara']);
-        Route::post('input-suara', [SuaraController::class,'inputSuara']);
+        Route::post('/input-suara', [SuaraController::class,'inputSuara']);
 
         Route::get('list-kandidat', [KandidatController::class,'listKandidat']);
         Route::get('detail-kandidat/{id}', [KandidatController::class,'detailKandidat']);
