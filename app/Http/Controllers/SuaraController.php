@@ -35,45 +35,61 @@ public function listSuara()
 }
 
 
-    public function inputSuara(Request $request)
-    {
-        $validateData = $request->validate([
-            '*.jumlahSuara' => 'required',
-            '*.tpsId' => 'required',
-            '*.kandidatId' => 'required'
-        ]);
+public function inputSuara(Request $request)
+{
+    $validateData = $request->validate([
+        '*.jumlahSuara' => 'numeric|required_with:*.tpsId,*.kandidatId',
+        '*.tpsId' => 'numeric|required_with:*.jumlahSuara,*.kandidatId',
+        '*.kandidatId' => 'numeric|required_with:*.jumlahSuara,*.tpsId',
+        '*.bukti_suara' => 'image|mimes:jpeg,png,jpg,gif|max:2048|required_without:*.jumlahSuara,*.tpsId,*.kandidatId'
+    ]);
 
-        try {
-            $idTps='0';
-            foreach ($request->all() as $input) {
+    try {
+        $idTps = '0';
+        foreach ($request->input() as $input) {
+            // Periksa apakah objek memiliki bukti_suara
+            if (isset($input['bukti_suara'])) {
+                $images = $input['bukti_suara'];
+                if ($images->isValid()) {
+                    $images->storeAs('public/bukti_suara', $images->hashName());
+                    $tps = TPS::find($idTps);
+                    $tps->bukti_suara = $images->hashName(); 
+                    $tps->save();
+                } else {
+                    return response()->json(['message' => 'Bukti suara tidak valid.'], 400);
+                }
+            } else {
                 if (!isset($input['jumlahSuara'], $input['tpsId'], $input['kandidatId'])) {
                     return response()->json(['message' => 'Input tidak valid. Setiap objek harus memiliki jumlahSuara, tpsId, dan kandidatId.'], 400);
                 }
-                
+
                 $jumlahSuara = $input['jumlahSuara'];
                 $tpsId = $input['tpsId'];
                 $idTps = $tpsId;
                 $kandidatId = $input['kandidatId'];
 
-                // cek apakah tps sudah di isi
+                // cek apakah tps sudah diisi
                 $status = TPS::where('id', $idTps)->value('status');
                 if ($status == '0') {
                     Suara::create(['jumlahSuara' => $jumlahSuara, 'tpsId' => $tpsId, 'kandidatId' => $kandidatId]);
-                }else{
+                } else {
                     return response()->json(['message' => 'Pengisian suara gagal, Suara di tps ini sudah diisi sebelumnya'], 400);
                 }
             }
-            
-            TPS::where('id', $idTps)->update(['status' => '1']);
-            // update data tps berdasarkan tpsId
-            // ubah statusnya menjadi '1'
-            // $tpsIds = array_unique(array_column($request->validated(), 'tpsId')); // Ambil tpsId yang unik
-
-            return response()->json(['message' => 'Suara berhasil disimpan'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e], 500);
         }
+
+        TPS::where('id', $idTps)->update(['status' => '1']);
+
+        return response()->json(['message' => 'Suara berhasil disimpan'], 200);
+    } catch (\Exception $e) {
+        return response()->json(['message' => $e->getMessage()], 500);
     }
+}
+
+
+
+
+
 
     public function formatApiResponse($data, $message, $statusCode)
     {

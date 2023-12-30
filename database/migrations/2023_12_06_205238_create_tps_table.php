@@ -22,6 +22,7 @@ class CreateTpsTable extends Migration
             $table->string('desa');
             $table->enum('status',['0','1'])->default('0');
             $table->string('koordinat');
+            $table->string('bukti_suara')->nullable();
             $table->foreignId('userId')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

@@ -17,6 +17,7 @@ class Tps extends Model
         'desa',
         'status',
         'koordinat',
+        'bukti_suara',
         'userId',
     ];
 }
