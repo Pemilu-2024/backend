@@ -36,21 +36,23 @@ public function listSuara()
 
 
 
+
+
 public function inputSuara(Request $request)
 {
-    $request->validate([
+    $validator = Validator::make($request->all(), [
         '*.jumlahSuara' => 'numeric|required_with:*.tpsId,*.kandidatId',
         '*.tpsId' => 'numeric|required_with:*.jumlahSuara,*.kandidatId',
         '*.kandidatId' => 'numeric|required_with:*.jumlahSuara,*.tpsId',
-        'file_bukti' => 'required_without:*.jumlahSuara,*.tpsId,*.kandidatId|image|mimes:jpeg,png,jpg,gif|max:2048'
+        '*.bukti_suara' => 'required_without:*.jumlahSuara,*.tpsId,*.kandidatId|image|mimes:jpeg,png,jpg,gif|max:2048'
     ]);
 
-    // Tambahkan validasi tambahan jika diperlukan
+    if ($validator->fails()) {
+        return response()->json(['message' => 'Validasi gagal', 'errors' => $validator->errors()], 400);
+    }
 
     return response()->json(['requestData' => $request->all()], 200);
 }
-
-
 
 
 
