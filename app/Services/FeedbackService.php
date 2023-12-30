@@ -26,10 +26,10 @@ class FeedbackService
     public function createFeedback(array $dataRequest)
     {
         $data = [
-            'umur' => $dataRequest['umur'],
+            'rating' => $dataRequest['rating'],
+            'nama' => $dataRequest['nama'],
             'alamat' => $dataRequest['alamat'],
-            'kepuasan' => $dataRequest['kepuasan'],
-            'saran' => $dataRequest['saran'],
+            'aspirasi' => $dataRequest['aspirasi'],
             'userId' => $dataRequest['userId'],
         ];
         return $this->feedbackRepository->createFeedback($data);

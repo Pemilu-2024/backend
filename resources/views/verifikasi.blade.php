@@ -25,7 +25,7 @@
 <body>
 <div class="row">
         <div>
-            <h2 class="text-center mt-3">Masukkan Password Aplikasi Hitung Cepat</h2>
+            <h2 class="text-center mt-3">Masukkan Password Aplikasi PATEN</h2>
             <form method="POST" action="{{ route('aktivasi')}}" onsubmit="return validateForm()">
                 @csrf <!-- Tambahkan token CSRF untuk keamanan -->
                 <input type="hidden" id="id" name="id" value="{{$id}}">

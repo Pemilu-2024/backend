@@ -37,7 +37,7 @@ class FeedbackController extends Controller
             $result = $this->feedbackService->createFeedback($validateData);
     
             // berikan response
-            return $this->formatApiResponse($result, 'create kandidat successfully', 201);
+            return $this->formatApiResponse($result, 'create feedback successfully', 201);
         } catch (\Throwable $th) {
             // ambil error message
             $errorMessage = $th->getMessage();
@@ -60,10 +60,10 @@ class FeedbackController extends Controller
       {
           try {
               return $request->validate([
-                  'umur' => 'required|numeric',
+                  'rating' => 'required|numeric',
+                  'nama' => 'required|string',
                   'alamat' => 'required|string',
-                  'kepuasan' => 'required|numeric',
-                  'saran' => 'required|string',
+                  'aspirasi' => 'required|string',
                   'userId' => 'required|numeric',
               ]);
           } catch (ValidationException $e) {

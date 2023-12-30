@@ -15,10 +15,10 @@ class CreateFeedbackTable extends Migration
     {
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->string('umur');
+            $table->integer('rating');
+            $table->string('nama');
             $table->string('alamat');
-            $table->integer('kepuasan');
-            $table->text('saran');
+            $table->text('aspirasi');
             $table->foreignId('userId')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
