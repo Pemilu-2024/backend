@@ -51,18 +51,21 @@ public function inputSuara(Request $request)
             // Periksa apakah objek memiliki bukti_suara
             if (isset($input['bukti_suara'])) {
                 $buktiSuaraBase64 = $input['bukti_suara'];
-
+                return response()->json([
+                    'data' => $buktiSuaraBase64,
+                    'message' => 'oke'
+                ]);
                 // Decode Base64 dan simpan sebagai file
-                $buktiSuaraBinary = base64_decode($buktiSuaraBase64);
-                $imageName = uniqid() . '.jpg'; // Nama file unik
-                $path = storage_path('app/public/bukti_suara/' . $imageName);
+                // $buktiSuaraBinary = base64_decode($buktiSuaraBase64);
+                // $imageName = uniqid() . '.jpg'; // Nama file unik
+                // $path = storage_path('app/public/bukti_suara/' . $imageName);
                 
-                file_put_contents($path, $buktiSuaraBinary);
+                // file_put_contents($path, $buktiSuaraBinary);
 
-                // Update kolom bukti_suara pada TPS
-                $tps = TPS::find($idTps);
-                $tps->bukti_suara = $imageName;
-                $tps->save();
+                // // Update kolom bukti_suara pada TPS
+                // $tps = TPS::find($idTps);
+                // $tps->bukti_suara = $imageName;
+                // $tps->save();
             } else {
                 if (!isset($input['jumlahSuara'], $input['tpsId'], $input['kandidatId'])) {
                     return response()->json(['message' => 'Input tidak valid. Setiap objek harus memiliki jumlahSuara, tpsId, dan kandidatId.'], 400);
