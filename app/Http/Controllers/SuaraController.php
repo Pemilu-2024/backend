@@ -42,13 +42,14 @@ public function inputSuara(Request $request)
         '*.jumlahSuara' => 'numeric|required_with:*.tpsId,*.kandidatId',
         '*.tpsId' => 'numeric|required_with:*.jumlahSuara,*.kandidatId',
         '*.kandidatId' => 'numeric|required_with:*.jumlahSuara,*.tpsId',
-        '*.bukti_suara' => 'required_without:*.jumlahSuara,*.tpsId,*.kandidatId|image|mimes:jpeg,png,jpg,gif|max:2048'
+        'file_bukti' => 'required_without:*.jumlahSuara,*.tpsId,*.kandidatId|image|mimes:jpeg,png,jpg,gif|max:2048'
     ]);
 
     // Tambahkan validasi tambahan jika diperlukan
 
     return response()->json(['requestData' => $request->all()], 200);
 }
+
 
 
 
