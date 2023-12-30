@@ -95,14 +95,24 @@ class KontenRepository
             // Lakukan penambahan jumlahLike atau jumlahDislike berdasarkan nilai reaksi
             if ($data['reaksi'] == '0') {
                 $this->kontenModel->where('id', $id)->increment('jumlahDislike');
-                $this->kontenModel->where('id', $id)->decrement('jumlahLike');
             }
             if ($data['reaksi'] == '1') {
                 $this->kontenModel->where('id', $id)->increment('jumlahLike');
-                $this->kontenModel->where('id', $id)->decrement('jumlahDislike');
             }
         }
     }
+
+    public function listKomenbyIdKonten($id)
+{
+    $data = $this->komenModel
+        ->select('komens.*', 'users.nama as nama_user')
+        ->join('users', 'komens.userId', '=', 'users.id')
+        ->where('kontenId', $id)
+        ->get();
+
+    return $data;
+}
+
 
     public function komenKonten(array $dataRequest, $id)
     {

@@ -47,6 +47,12 @@ class KontenController extends Controller
         }
     }
 
+    public function listKomenbyIdKonten($id)
+    {
+        $result = $this->kontenService->listKomenbyIdKonten($id);
+        return $this->formatApiResponse($result, 'get data list komen successfully', 200);
+    }
+
     public function komenKonten(Request $request, $id)
     {
         try {

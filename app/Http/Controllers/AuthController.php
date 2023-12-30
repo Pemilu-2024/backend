@@ -21,6 +21,24 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
+    public function listAllUser()
+    {
+        $result = $this->authService->listAllUser();
+        if ($result) {
+            return response()->json(['message' => 'berhasil', 'data' => $result], 200);   
+        }
+        return response()->json(['message' => 'gagal'], 401);      
+    }
+
+    public function listUserVerify()
+    {
+        $result = $this->authService->listUserVerify();
+        if ($result) {
+            return response()->json(['message' => 'berhasil', 'data' => $result], 200);   
+        }
+        return response()->json(['message' => 'gagal'], 401);   
+    }
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -63,6 +81,15 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
+    public function verifyAccess($id)
+    {
+        $result = $this->authService->verifyAccess($id);
+        if ($result) {
+            return response()->json(['message' => 'Verifikasi Akses berhasil'], 200);   
+        }
+        return response()->json(['message' => 'Verifikasi Akses gagal'], 401);   
+    }
+
     public function me()
     {
         return response()->json($this->authService->getUser());
@@ -80,6 +107,19 @@ class AuthController extends Controller
         $token = $this->authService->refresh();
 
         return $this->respondWithToken($token);
+    }
+
+    public function delete($id)
+    {
+        $result = $this->authService->delete($id);
+        if ($result) {
+            return response()->json([
+                'message' => 'berhasil delete user'
+            ]);
+        }
+        return response()->json([
+            'message' => 'gagal delete user'
+        ]);
     }
 
     protected function respondWithToken($token)

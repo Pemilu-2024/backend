@@ -81,6 +81,11 @@ class KontenService
         return $this->kontenRepository->reaksiKonten($data, $id);
     }
 
+    public function listKomenbyIdKonten($id)
+    {
+        return $this->kontenRepository->listKomenbyIdKonten($id);
+    }
+
     public function komenKonten(array $dataRequest, $id)
     {
         $data = [

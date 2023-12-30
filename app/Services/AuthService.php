@@ -14,6 +14,16 @@ class AuthService
         $this->authRepository = $authRepository;
     }
 
+    public function listAllUser()
+    {
+        return $this->authRepository->listAllUser();
+    }
+
+    public function listUserVerify()
+    {
+        return $this->authRepository->listUserVerify();
+    }
+
     public function register(array $data)
     {
         return $this->authRepository->create($data);
@@ -36,6 +46,11 @@ class AuthService
         return JWTAuth::claims($customClaims)->fromUser($user);
     }
 
+    public function verifyAccess($id)
+    {
+        return $this->authRepository->verifyAccess($id); 
+    }
+
     public function getUser()
     {
         return auth()->user();
@@ -49,5 +64,10 @@ class AuthService
     public function refresh()
     {
         return auth()->refresh();
+    }
+
+    public function delete($id)
+    {
+        return $this->authRepository->delete($id);
     }
 }
