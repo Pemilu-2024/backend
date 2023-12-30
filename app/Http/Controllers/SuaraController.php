@@ -38,12 +38,12 @@ public function listSuara()
 
 public function inputSuara(Request $request)
 {
-    // $request->validate([
-    //     '*.jumlahSuara' => 'numeric|required_with:*.tpsId,*.kandidatId',
-    //     '*.tpsId' => 'numeric|required_with:*.jumlahSuara,*.kandidatId',
-    //     '*.kandidatId' => 'numeric|required_with:*.jumlahSuara,*.tpsId',
-    //     '*.bukti_suara' => 'required_without:*.jumlahSuara,*.tpsId,*.kandidatId|image|mimes:jpeg,png,jpg,gif|max:2048'
-    // ]);
+    $request->validate([
+        '*.jumlahSuara' => 'numeric|required_with:*.tpsId,*.kandidatId',
+        '*.tpsId' => 'numeric|required_with:*.jumlahSuara,*.kandidatId',
+        '*.kandidatId' => 'numeric|required_with:*.jumlahSuara,*.tpsId',
+        '*.bukti_suara' => 'required_without:*.jumlahSuara,*.tpsId,*.kandidatId|image|mimes:jpeg,png,jpg,gif|max:2048'
+    ]);
 
     // try {
     //     $idTps = '0';
