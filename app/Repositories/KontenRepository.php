@@ -102,16 +102,25 @@ class KontenRepository
         }
     }
 
-    public function listKomenbyIdKonten($id)
-{
-    $data = $this->komenModel
-        ->select('komens.*', 'users.nama as nama_user')
-        ->join('users', 'komens.userId', '=', 'users.id')
-        ->where('kontenId', $id)
-        ->get();
+    public function isLike(array $dataRequest)
+    {
+        return $this->interaksiModel
+            ->where('userId', $dataRequest['userId'])
+            ->where('kontenId', $dataRequest['kontenId'])
+            ->first();
 
-    return $data;
-}
+    }
+
+    public function listKomenbyIdKonten($id)
+    {
+        $data = $this->komenModel
+            ->select('komens.*', 'users.nama as nama_user')
+            ->join('users', 'komens.userId', '=', 'users.id')
+            ->where('kontenId', $id)
+            ->get();
+
+        return $data;
+    }
 
 
     public function komenKonten(array $dataRequest, $id)

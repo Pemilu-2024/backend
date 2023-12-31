@@ -43,6 +43,7 @@ Route::group([
         Route::post('komen-konten/{id}', [KontenController::class,'komenKonten']);
         Route::post('create-konten', [KontenController::class,'createKonten']);
         Route::get('list-komen-konten/{id}', [KontenController::class,'listKomenbyIdKonten']);
+        Route::get('islike', [KontenController::class,'isLike']);
       
         Route::get('list-suara', [SuaraController::class,'listSuara']);
         Route::post('/input-suara', [SuaraController::class,'inputSuara']);
@@ -60,3 +61,4 @@ Route::group([
     });
   });
   
+

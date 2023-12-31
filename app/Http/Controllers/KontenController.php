@@ -47,6 +47,24 @@ class KontenController extends Controller
         }
     }
 
+    public function isLike(Request $request)
+    {
+        $validateData = $request->validate([
+            'userId' => 'required',
+            'kontenId' => 'required',
+        ]);
+
+        $result = $this->kontenService->isLike($validateData);
+        if ($result) {
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+        return response()->json([
+            'status' => false,
+        ]);
+    }
+
     public function listKomenbyIdKonten($id)
     {
         $result = $this->kontenService->listKomenbyIdKonten($id);

@@ -81,6 +81,16 @@ class KontenService
         return $this->kontenRepository->reaksiKonten($data, $id);
     }
 
+    public function isLike(array $dataRequest)
+    {
+        $data = [
+            'userId' => $dataRequest['userId'],
+            'kontenId' => $dataRequest['kontenId'],
+        ];
+
+        return $this->kontenRepository->isLike($data);
+    }
+
     public function listKomenbyIdKonten($id)
     {
         return $this->kontenRepository->listKomenbyIdKonten($id);
