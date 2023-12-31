@@ -141,7 +141,7 @@ class KontenController extends Controller
     private function validateTpsData(Request $request)
     {
         return $request->validate([
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar' => 'required|file|mimes:jpeg,png,jpg,gif,mp4,mov,avi|max:2048',
             'judul' => 'required|string',
             'deskripsi' => 'required|string',
             'userId' => 'required|numeric',
