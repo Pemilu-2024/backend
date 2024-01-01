@@ -7,7 +7,7 @@ use App\Http\Controllers\TpsController;
 use App\Http\Controllers\KontenController;
 use App\Http\Controllers\KandidatController;
 use App\Http\Controllers\SuaraController;
-use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\AspirasiController;
 
 Route::group([
     'prefix' => 'auth'
@@ -54,8 +54,8 @@ Route::group([
         Route::post('update-kandidat/{id}', [KandidatController::class,'updateKandidat']);
         Route::delete('delete-kandidat/{id}', [KandidatController::class,'deleteKandidat']);
 
-        Route::post('create-feedback', [FeedbackController::class,'createFeedback']);
-        Route::get('list-feedback', [FeedbackController::class,'listFeedback']);
+        Route::post('create-aspirasi', [AspirasiController::class,'createAspirasi']);
+        Route::get('list-aspirasi', [AspirasiController::class,'listAspirasi']);
       });
       
     });

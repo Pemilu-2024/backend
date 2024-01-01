@@ -76,17 +76,19 @@ class KontenRepository
             ->where('userId', $data['userId'])
             ->where('kontenId', $id)
             ->first();
+
+            $temp->delete();
             
-            $existingReaksi->update(['reaksi' => $data['reaksi']]);
-            if ($data['reaksi'] == '0' && $temp->reaksi != '0') {
-                $this->kontenModel->where('id', $id)->increment('jumlahDislike');
-                $this->kontenModel->where('id', $id)->decrement('jumlahLike');
-            }
+            // $existingReaksi->update(['reaksi' => $data['reaksi']]);
+            // if ($data['reaksi'] == '0' && $temp->reaksi != '0') {
+            //     $this->kontenModel->where('id', $id)->increment('jumlahDislike');
+            //     $this->kontenModel->where('id', $id)->decrement('jumlahLike');
+            // }
     
-            if ($data['reaksi'] == '1' && $temp->reaksi != '1') {
-                $this->kontenModel->where('id', $id)->increment('jumlahLike');
-                $this->kontenModel->where('id', $id)->decrement('jumlahDislike');
-            }
+            // if ($data['reaksi'] == '1' && $temp->reaksi != '1') {
+            //     $this->kontenModel->where('id', $id)->increment('jumlahLike');
+            //     $this->kontenModel->where('id', $id)->decrement('jumlahDislike');
+            // }
         } else {
             // Jika belum, lakukan insert data baru
             $data['kontenId'] = $id;
