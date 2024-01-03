@@ -82,7 +82,7 @@ class KontenRepository
             // $existingReaksi->update(['reaksi' => $data['reaksi']]);
             // if ($data['reaksi'] == '0' && $temp->reaksi != '0') {
             //     $this->kontenModel->where('id', $id)->increment('jumlahDislike');
-            //     $this->kontenModel->where('id', $id)->decrement('jumlahLike');
+                $this->kontenModel->where('id', $id)->decrement('jumlahLike');
             // }
     
             // if ($data['reaksi'] == '1' && $temp->reaksi != '1') {
