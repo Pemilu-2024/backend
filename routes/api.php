@@ -8,6 +8,9 @@ use App\Http\Controllers\KontenController;
 use App\Http\Controllers\KandidatController;
 use App\Http\Controllers\SuaraController;
 use App\Http\Controllers\AspirasiController;
+use App\Http\Controllers\LaporanKecuranganController;
+use App\Http\Controllers\PusatInformasiController;
+
 
 Route::group([
     'prefix' => 'auth'
@@ -56,9 +59,19 @@ Route::group([
 
         Route::post('create-aspirasi', [AspirasiController::class,'createAspirasi']);
         Route::get('list-aspirasi', [AspirasiController::class,'listAspirasi']);
+        
+        Route::get('list-laporan', [LaporanKecuranganController::class,'listLaporanKecurangan']);
+        Route::get('detail-laporan/{id}', [LaporanKecuranganController::class,'detailLaporanKecurangan']);
+        Route::post('create-laporan', [LaporanKecuranganController::class,'createLaporanKecurangan']);
+        Route::delete('delete-laporan/{id}', [LaporanKecuranganController::class,'deleteLaporanKecurangan']);
+        
+        Route::get('list-informasi', [PusatInformasiController::class,'listInformasi']);
+        Route::get('detail-informasi/{id}', [PusatInformasiController::class,'detailInformasi']);
+        Route::post('create-informasi', [PusatInformasiController::class,'createInformasi']);
+        Route::post('update-informasi/{id}', [PusatInformasiController::class,'updateInformasi']);
+        Route::delete('delete-informasi/{id}', [PusatInformasiController::class,'deleteInformasi']);
       });
       
     });
   });
   
-
