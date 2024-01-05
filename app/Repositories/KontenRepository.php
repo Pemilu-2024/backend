@@ -140,7 +140,7 @@ class KontenRepository
 
     public function hapusKomen($id)
     {
-        $data = $this->interaksiModel->find($id);
+        $data = $this->komenModel->find($id);
         return $data->delete();
     }
 

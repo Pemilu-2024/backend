@@ -133,7 +133,7 @@ class KontenController extends Controller
     public function hapusKomen($id)
     {
         try {
-            return $this->formatApiResponse($this->tpsService->hapusKomen($id), 'delete komen successfully', 200);
+            return $this->formatApiResponse($this->kontenService->hapusKomen($id), 'delete komen successfully', 200);
         } catch (\Throwable $th) {
             // ambil error message
             $errorMessage = $th->getMessage();
@@ -144,7 +144,7 @@ class KontenController extends Controller
     public function hapusKonten($id)
     {
         try {
-            return $this->formatApiResponse($this->tpsService->hapusKonten($id), 'delete konten successfully', 200);
+            return $this->formatApiResponse($this->kontenService->hapusKonten($id), 'delete konten successfully', 200);
         } catch (\Throwable $th) {
             // ambil error message
             $errorMessage = $th->getMessage();

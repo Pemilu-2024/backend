@@ -43,10 +43,12 @@ Route::group([
         Route::get('detail-konten/{id}', [KontenController::class,'detailKonten']);
         Route::post('reaksi-konten/{id}', [KontenController::class,'reaksiKonten']);
         Route::post('reaksi-konten', [KontenController::class,'reaksiKonten']);
-        Route::post('komen-konten/{id}', [KontenController::class,'komenKonten']);
         Route::post('create-konten', [KontenController::class,'createKonten']);
         Route::get('list-komen-konten/{id}', [KontenController::class,'listKomenbyIdKonten']);
         Route::post('islike', [KontenController::class,'isLike']);
+        Route::post('komen-konten/{id}', [KontenController::class,'komenKonten']);
+        Route::delete('delete-komen/{id}', [KontenController::class,'hapusKomen']);
+        Route::delete('delete-konten/{id}', [KontenController::class,'hapusKonten']);
       
         Route::get('list-suara', [SuaraController::class,'listSuara']);
         Route::post('/input-suara', [SuaraController::class,'inputSuara']);
