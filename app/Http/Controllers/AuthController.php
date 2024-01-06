@@ -44,6 +44,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'email' => 'required|email|unique:users',
+            'no_hp' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -53,16 +54,50 @@ class AuthController extends Controller
         $user = User::create([
             'nama' => $request->input('nama'),
             'email' => $request->input('email'),
+            'no_hp' => $request->input('no_hp'),
         ]);
 
         if ($user) {
             // $this->emailController->index($user->id);
             Mail::to($user->email)->send(new SendEmail($user->id));
             // Mail::to($user->email)->send(new EmailVerification($user));
-            return response()->json(['message' => 'Registration successful', 'id' => $user->id],201);
+            return response()->json(['message' => 'Registration successful'],201);
         } else {
             return response()->json(['message' => 'Registration failed'], 500);
         }
+    }
+
+    public function setFotoProfile(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'gambar' => 'required|file|mimes:jpeg,png,jpg,gif,mp4,mov,avi|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->messages()], 400);
+        }
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        if ($request->hasFile('gambar')) {
+            $image = $request->file('gambar');
+            $imageName = $image->hashName();
+
+            // Simpan gambar ke storage/fotoProfil
+            $image->storeAs('public/fotoProfil', $imageName);
+
+            // Update kolom 'gambar' pada model User
+            $user->gambar = $imageName;
+            $user->save();
+
+            return response()->json(['success' => 'Foto profil berhasil diupdate']);
+        }
+
+        return response()->json(['error' => 'No file provided'], 400);
     }
 
     public function login(Request $request)

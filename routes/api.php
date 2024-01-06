@@ -25,6 +25,7 @@ Route::group([
       Route::delete('delete-user/{id}', [AuthController::class,'delete']);
       
       Route::post('verify-access/{id}', [AuthController::class,'verifyAccess']);
+      Route::post('foto-profil/{id}', [AuthController::class,'setFotoProfile']);
       Route::post('logout', [AuthController::class,'logout']);
       Route::post('refresh', [AuthController::class, 'refresh']);
       Route::get('me', [AuthController::class,'me']);

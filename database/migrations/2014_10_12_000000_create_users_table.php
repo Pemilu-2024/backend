@@ -17,10 +17,12 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('nama');
             $table->string('email')->unique();
+            $table->string('no_hp');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            // 0 user biasa, 1 petugas, 2 admin, 3 root
-            $table->enum('level',['0', '1', '2', '3'])->default('0');
+            $table->string('gambar')->nullable();
+            // 0 petugas, 1 admin, 2 root
+            $table->enum('level',['0', '1', '2'])->default('0');
             //  0 belum verifikasi email, 1 sudah verifikasi email namun belum di setujui mengakses menu tps, 2 disetujui mengakses menu tps
             $table->enum('status',['0', '1', '2'])->default('0');
             $table->rememberToken();
